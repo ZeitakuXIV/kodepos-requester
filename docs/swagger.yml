@@ -1,0 +1,58 @@
+openapi: "3.0.3"
+
+info:
+  title: Fiber API
+  description: Go Fiber API with swagger.
+  version: "1.0"
+
+servers:
+  - url: http://127.0.0.1:8080/api
+tags:
+  - name: default
+  - name: User Management
+  - name: Restricted
+
+paths:
+  /health:
+    get:
+      summary: Server Health Checker
+      responses:
+        "200":
+          $ref: "#/components/responses/BaseResponseOK"
+components:
+  responses:
+    BaseResponseOK:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: string
+                example: "OK"
+              message:
+                type: string
+                example: ""
+              success:
+                type: boolean
+                example: true
+    BaseResponseError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: string
+                example:
+              message:
+                type: string
+                example: error
+              success:
+                type: boolean
+                example: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
